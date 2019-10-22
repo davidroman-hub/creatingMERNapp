@@ -2,7 +2,10 @@ import React, {useReducer} from 'react'
 import GuestContext from './guestContext'
 import guestReducer from './guestReducer'
 import {
-    TOGGLE_FILTER
+    TOGGLE_FILTER,
+    SEARCH_GUEST,
+    CLEAR_SEARCH
+
 } from '../types'
 
 const GuestState = (props) => {
@@ -10,7 +13,8 @@ const GuestState = (props) => {
 
     const initialState = {
 
-        filterGuest : false,
+        filterGuest : false, //es el boton de true y falso para filtrar los confirmados.
+        search:null,      // primero pusimos null porque no hay nada que buscar todavia. 
 
     guests: [
         {
@@ -18,7 +22,7 @@ const GuestState = (props) => {
             name:'jake Smith',
             phone: '333 444 6666',
             dietary: 'Vegan',
-            isconfirmed: false
+            isconfirmed: true
 
         },
         {
@@ -47,6 +51,20 @@ const GuestState = (props) => {
             type: TOGGLE_FILTER
         })
     }
+
+    const searchGuest = (guest) => {
+        dispatch({
+            type: SEARCH_GUEST,
+            payload: guest
+        })
+    }
+
+    const clearSearch = () => {
+            dispatch({
+                type:CLEAR_SEARCH
+                
+        })
+    }
     
     return (
         <GuestContext.Provider
@@ -54,7 +72,10 @@ const GuestState = (props) => {
           
             guests:state.guests,
             filterGuest :state.filterGuest,
-            toggleFilter
+            search: state.search,
+            toggleFilter,
+            searchGuest,
+            clearSearch
 
         }}
         >
