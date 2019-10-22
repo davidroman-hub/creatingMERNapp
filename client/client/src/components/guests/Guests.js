@@ -4,11 +4,11 @@ import Guest from './Guest'
 
 const Guests = () => {
 
-      const {guests} = useContext(GuestContext)  
+      const { guests, filterGuest } = useContext(GuestContext)  
     return (
             
             <div className="guests">
-                    {guests.map(guest => < Guest key ={guest.id} guest={guest}/>)}
+                    {guests.filter(guest => !filterGuest || guest.isconfirmed).map(guest => < Guest key ={guest.id} guest={guest}/>)}
             </div>
 
        
