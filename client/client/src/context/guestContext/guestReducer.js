@@ -2,7 +2,8 @@ import {
     TOGGLE_FILTER,
     SEARCH_GUEST,
     CLEAR_SEARCH,
-    ADD_GUEST
+    ADD_GUEST,
+    REMOVE_GUEST
 } from '../types'
 
 
@@ -16,6 +17,12 @@ export default(state, {type, payload}) =>{
                 guests: [...state.guests, payload]
             } 
 
+         case REMOVE_GUEST:
+            return{
+                ...state,
+                guests: state.guests.filter(guest => guest.id !== payload)
+            }
+
         case SEARCH_GUEST:
         const reg = new RegExp(`${payload}`, 'gi')    
         return{
@@ -24,11 +31,15 @@ export default(state, {type, payload}) =>{
 
             }
 
+
+
         case CLEAR_SEARCH:
             return{
                 ...state,
                 search:null
             }    
+
+
 
 
         case TOGGLE_FILTER:
