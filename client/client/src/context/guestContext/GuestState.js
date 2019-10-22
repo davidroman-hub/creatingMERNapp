@@ -4,7 +4,8 @@ import guestReducer from './guestReducer'
 import {
     TOGGLE_FILTER,
     SEARCH_GUEST,
-    CLEAR_SEARCH
+    CLEAR_SEARCH,
+    ADD_GUEST
 
 } from '../types'
 
@@ -45,6 +46,14 @@ const GuestState = (props) => {
 }
 
     const [state,dispatch] = useReducer(guestReducer, initialState)
+    const addGuest = (guest) =>{
+        guest.id = Date.now()
+        guest.isconfirmed=false
+        dispatch({
+            type:ADD_GUEST,
+            payload:guest
+        })
+    }
 
     const toggleFilter = () => {
         dispatch ({
@@ -73,6 +82,7 @@ const GuestState = (props) => {
             guests:state.guests,
             filterGuest :state.filterGuest,
             search: state.search,
+            addGuest,
             toggleFilter,
             searchGuest,
             clearSearch
