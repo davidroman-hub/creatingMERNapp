@@ -20,7 +20,7 @@ const GuestState = (props) => {
             name:'Merry Williams',
             phone: '222 777 6666',
             dietary: 'Non-Veg',
-            isconfirmed: false
+            isconfirmed: true
 
         },
         {
