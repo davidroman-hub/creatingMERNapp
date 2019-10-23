@@ -4,10 +4,23 @@ import GuestContext from '../../context/guestContext/guestContext'
 
 
 const GuestForm = () => {
-  const { addGuest, editAble } = useContext(GuestContext)
+  const { addGuest, editAble, updateGuest, clearEdit } = useContext(GuestContext)
+  
+  
+  //editar guest
   useEffect(()=>{
-    
-  })
+    if(editAble !==  null){
+      setGuest(editAble)
+    }else{
+      setGuest({
+        name:'',
+        phone:'',
+        dietary: 'Non-Veg'
+      })
+    } 
+  }, [editAble])
+  
+  
   const [guest, setGuest] = useState({
     name:'',
     phone:'',
@@ -25,18 +38,29 @@ const GuestForm = () => {
       }
       const onsubmit = e =>{
         e.preventDefault()
+        if(editAble !== null){
+          updateGuest(guest)
+          clearEdit()
+        }else{
+          addGuest(guest)
+          setGuest({
+            name:'',
+            phone:'',
+            dietary: 'Non-Veg'
+          })
+        }
         // console.log(guest)
-        addGuest(guest)
-        setGuest({
-          name:'',
-          phone:'',
-          dietary: 'Non-Veg'
-        })
+        // addGuest(guest)
+        // setGuest({
+        //   name:'',
+        //   phone:'',
+        //   dietary: 'Non-Veg'
+        // })
       }
 
     return (
         <div className="invite-section">
-        <h1>Invite Someone</h1>
+        <h1>{editAble !== null ? 'Edit guest':'Invite Someone'}{/*invite Someone*/}</h1>
         <form  onSubmit={onsubmit}>
           <input type="text" placeholder="Name" name="name" value={name} onChange={handleChange}  />
           <input type="text" placeholder="Phone" name="phone" value={phone} onChange={handleChange} />
@@ -48,15 +72,16 @@ const GuestForm = () => {
               <span className="checkmark"></span>
             </label>
             <label className="container">Vegan
-          <input type="radio" name="dietary" value='Vegan'onChange={handleChange} />
+          <input type="radio" name="dietary" value='Vegan'onChange={handleChange} checked={dietary === 'Vegan'}/>
               <span className="checkmark"></span>
             </label>
             <label className="container">Pascatarian
-          <input type="radio" name="dietary" value='Pesacatarian'onChange={handleChange} />
+          <input type="radio" name="dietary" value='Pesacatarian'onChange={handleChange} checked={dietary === 'Pascatarian'} />
               <span className="checkmark"></span>
             </label>
           </div>
-          <input type="submit" value="Add Guest" className="btn" />
+          <input type="submit" value={editAble !== null ? 'Update guest': 'Add Guest'} className="btn" />
+          {editAble !== null ? <input onClick={clearEdit} value="Cancel" type="button" className="btn clear" /> : null}
         </form>
       </div>
     )
