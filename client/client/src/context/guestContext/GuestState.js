@@ -7,7 +7,9 @@ import {
     CLEAR_SEARCH,
     ADD_GUEST,
     REMOVE_GUEST,
-    UPDATE_GUEST
+    UPDATE_GUEST,
+    EDIT_GUEST,
+    CLEAR_EDIT
     
 
 } from '../types'
@@ -19,6 +21,7 @@ const GuestState = (props) => {
 
         filterGuest : false, //es el boton de true y falso para filtrar los confirmados.
         search:null,      // primero pusimos null porque no hay nada que buscar todavia. 
+        editAble:null,
 
     guests: [
         {
@@ -70,7 +73,24 @@ const GuestState = (props) => {
             payload:guest
         })
     } 
-    //Add guest
+//editguest
+    const editGuest = (guest) => {
+        dispatch({
+            type:EDIT_GUEST,
+            payload: guest
+        })
+    } 
+
+    const clearEdit = () => {
+        dispatch({
+            type:CLEAR_EDIT
+            
+        })
+    } 
+
+
+
+//Add guest
     const addGuest = (guest) =>{
         guest.id = Date.now()
         guest.isconfirmed=false
@@ -107,9 +127,12 @@ const GuestState = (props) => {
             guests:state.guests,
             filterGuest :state.filterGuest,
             search: state.search,
+            editAble: state.editAble,
             addGuest,
             removeGuest,
             updateGuest,
+            editGuest,
+            clearEdit,
             toggleFilter,
             searchGuest,
             clearSearch

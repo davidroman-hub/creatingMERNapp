@@ -1,13 +1,21 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import GuestContext from '../../context/guestContext/guestContext'
+
+
+
 const GuestForm = () => {
-  const {addGuest} = useContext(GuestContext)
+  const { addGuest, editAble } = useContext(GuestContext)
+  useEffect(()=>{
+    
+  })
   const [guest, setGuest] = useState({
     name:'',
     phone:'',
     dietary: 'Non-Veg'
   })
-
+// if(editAble !==null){
+//   console.log(editAble)
+// }
       const {name, phone, dietary} = guest
       const handleChange = e => {
         setGuest({
