@@ -55,7 +55,7 @@ const GuestState = (props) => {
 
 
 
-    const [state,dispatch] = useReducer(guestReducer, initialState)
+ const [state,dispatch] = useReducer(guestReducer, initialState)
     
 //Remove guest
     const removeGuest = (id) => {
